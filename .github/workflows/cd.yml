@@ -14,10 +14,10 @@ jobs:
       pages: write
 
     steps:
-      - name: Checkout repo
+      - name: Checkout
         uses: actions/checkout@v6.0.2
         
-      - name: Setup node.js environment
+      - name: Setup Node.js environment
         uses: actions/setup-node@v6.2.0
 
       - name: Install dependencies
@@ -32,10 +32,10 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Upload pages artifact
+      - name: Upload a Build Artifact
         uses: actions/upload-pages-artifact@v4.0.0
 
-      - name: Deploy github pages
+      - name: Deploy GitHub Pages site
         uses: actions/deploy-pages@v4.0.5
 
         
