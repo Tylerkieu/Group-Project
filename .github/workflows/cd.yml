@@ -1,1 +1,43 @@
+name: CD
+
+on:
+  pull_request: 
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+      pages: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v6.0.2
+        
+      - name: Setup node.js environment
+        uses: actions/setup-node@v6.2.0
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run lint
+        run: npm run lint
+
+      - name: Run test
+        run: npm test
+
+      - name: Build project
+        run: npm run build
+
+      - name: Upload pages artifact
+        uses: actions/upload-pages-artifact@v4.0.0
+
+      - name: Deploy github pages
+        uses: actions/deploy-pages@v4.0.5
+
+        
+  
 
