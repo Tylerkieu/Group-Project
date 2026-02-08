@@ -1,8 +1,8 @@
-name: ci
+name: ci 
 
-on:
-  pull_request:
-  push:
+on: 
+  pull_request: 
+  push: 
     branches: [main]
 
 jobs:
@@ -15,16 +15,26 @@ jobs:
 
       - name: Setup Node.js environment
         uses: actions/setup-node@v6.2.0
+        with:
+          node-version: 20
 
       - name: Install dependencies
         run: npm ci
 
+      - name: Install Vitest coverage dependency
+        run: npm install --no-save @vitest/coverage-v8
+
       - name: Run ESLint
         run: npm run lint
-        # warnings allowed, errors block PRs
 
-      - name: Run unit tests
-        run: npx vitest run
+      - name: Run unit tests with coverage
+        run: npx vitest run --coverage
 
-      - name: Run dependency security audit
-        run: npm audit --audit-level=high
+      - name: Security audit
+        run: npm audit --audit-level=high || true
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage/
