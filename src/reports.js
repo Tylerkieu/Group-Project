@@ -80,4 +80,4 @@ export function updateChart() {
     reportsInstance.updateChart();
   }
 }
-const x = ;
+const x = 12;
