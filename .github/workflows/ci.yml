@@ -1,8 +1,8 @@
-name: ci 
+name: ci
 
-on: 
-  pull_request: 
-  push: 
+on:
+  pull_request:
+  push:
     branches: [main]
 
 jobs:
@@ -10,24 +10,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-        - name: Checkout Repository
-          uses: actions/checkout@v6.0.2
+      - name: Checkout Repository
+        uses: actions/checkout@v6.0.2
 
-        - name: Setup Node.js environment
-          uses: actions/setup-node@v6.2.0
-      
-        - name: install dependencies
-          run: npm ci
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v6.2.0
 
-        - name: Run ESlint
-          run: npm run lint
+      - name: Install dependencies
+        run: npm ci
 
-        - name: Run unit tests with coverage
-          run: npm test -- --coverage
+      - name: Run ESLint
+        run: npm run lint
 
-        - name: Upload coverage report
-          uses: actions/upload-artifact@v4
-          with:
-            name: coverage-report
-            path: coverage/
+      - name: Run unit tests with coverage
+        run: npx vitest run --coverage
 
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage/
